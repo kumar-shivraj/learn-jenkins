@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('Hello') {
+        stage('Build') {
             agent {
                 docker {
                     image 'node:18-alpine'
@@ -14,7 +14,9 @@ pipeline {
                 pwd
                 node --version
                 npm --version
-                # npm ci is the command to install a project with a `package-lock.json` file
+                echo "Installing dependencies..."
+                npm ci
+                echo "Building application..."
                 npm run build
                 ls -al
                 '''
